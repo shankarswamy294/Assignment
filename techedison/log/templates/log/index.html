@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <style>
+        header{
+        width:100%;
+        height:100px;
+        background-color:black;
+        color:white;
+        font-weight:bold;
+        font-size:50px;
+        text-align:center;
+        }
+
+        .container{
+        margin:100px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header id="header">TECHEDISON</header>
+
+<div class="container">
+    <h1>Table View</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>USER NAME</th>
+        <th>Videos played</th>
+        <th>Enrolled</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for i in final %}
+    <tr>
+        <td>{{ i.0 }}</td>
+        <td>{{ i.1 }}</td>
+        <td>{{ i.2 }}</td>
+    </tr>
+{% endfor %}
+</tbody>
+      </table>
+    </div>
+  <hr>
+<div style="width:500px; height:120px; float:left; margin-left:300px">
+<div id="chart1"><h3>PLAYED VIDEOS CHART</h3><canvas id="myChart" width="300" height="100"></canvas></div><hr>
+<div id="chart2"><h3>ENROLLED CHART</h3><canvas id="myChart2" width="300" height="100"></canvas></div><hr>
+</div>
+
+
+<script>
+list = []
+{% for i in arr %}
+    list.push( "{{ i }}" );
+{% endfor %}
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: list,
+        datasets: [{
+            label: 'videos played',
+            data: {{ video_played }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+var ctx = document.getElementById("myChart2").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: list,
+        datasets: [{
+            label: 'enrolled',
+            data: {{ enrolled }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+</script>
+</body>
+</html>
+
